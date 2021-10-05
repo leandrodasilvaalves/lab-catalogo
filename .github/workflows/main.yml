@@ -28,3 +28,27 @@ jobs:
           tags: |
             leandroalves86/lab-catalogo:latest
             leandroalves86/lab-catalogo:v${{ github.run_number }}
+            
+            
+            
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1.1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_KUBE_CONFIG }}
+      
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v1.3
+        with:
+          manifests: |
+            k8s/postgresql-deployment.yaml
+            k8s/web-deployment.yaml
+          images: leandroalves86/lab-catalogo:v${{ github.run_number }}
+          
