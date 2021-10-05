@@ -1,0 +1,20 @@
+web:
+  replicaCount: 1
+  image:
+    repository: leandroalves86/lab-catalogo
+    tag: "v2"
+  service:
+    type: NodePort
+    nodePort: 30000
+
+db:
+  replicaCount: 1
+  image:
+    repository: postgres
+    tag: alpine3.14
+  service:
+    type: ClusterIP
+  user_name: postgres
+  password: 123@Mudar
+  db_name: lab.catalogo  
+  port: 5432 

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-dpl-name
+spec:
+  replicas: 1
+  selector:    
+    matchLabels:
+      app: postgresql-pod-label
+  template:    
+    metadata:
+      labels:
+        app: postgresql-pod-label
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:alpine3.14
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: 123@Mudar
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-service-name
+spec:
+  selector:
+    app: postgresql-pod-label
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP

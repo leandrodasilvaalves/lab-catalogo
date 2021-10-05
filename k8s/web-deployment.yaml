@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-catalogo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-catalogo
+  template:
+    metadata:
+      labels:
+        app: web-catalogo
+    spec:
+      containers:
+      - name: web-catalogo
+        image: leandroalves86/lab-catalogo:v2
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        env:
+          - name: ConnectionStrings__DefaultConnection
+            value: "User ID=postgres;Password=123@Mudar;Server=postgresql-service-name;Port=5432;Database=lab.catalogo; Integrated Security=true;Pooling=true;"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-catalogo
+spec:
+  selector:
+    app: web-catalogo
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30000
+  type: NodePort

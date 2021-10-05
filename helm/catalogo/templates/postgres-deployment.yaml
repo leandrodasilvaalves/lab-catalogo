@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-postgres
+spec:
+  replicas: {{ .Values.db.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-{{ .Release.Name }}-postgres
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-{{ .Release.Name }}-postgres
+    spec:      
+      containers:
+        - name: {{ .Chart.Name }}          
+          image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.db.port }}
+              protocol: TCP
+          env:
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.db.password }}
+          

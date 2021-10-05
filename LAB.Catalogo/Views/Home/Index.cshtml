@@ -1,0 +1,28 @@
+﻿@using LAB.Catalogo.Models;
+@model IEnumerable<Produto>;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <div class="row">
+        @foreach (var prod in Model)
+        {
+            <div class="col-3">
+                <div class="card my-2" style="width: 18rem">
+                    <img class="card-img-top" src="@prod.Imagem" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@prod.Nome</h5>
+                        <p class="card-text">@prod.Descricao.</p>
+                        <p><strong>R$ @prod.Preco</strong></p>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+                        <div>@prod.Categoria</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

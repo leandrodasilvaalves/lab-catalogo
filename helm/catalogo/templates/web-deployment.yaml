@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-web
+spec:
+  replicas: {{ .Values.web.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-{{ .Release.Name }}-web
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-{{ .Release.Name }}-web
+    spec:      
+      containers:
+        - name: {{ .Chart.Name }}          
+          image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: SQL_DATABASE_NAME
+              value: "{{ .Values.db.db_name }}"
+            - name: SQL_USERNAME
+              value: "{{ .Values.db.user_name }}"
+            - name: SQL_PASSWORD
+              value: "{{ .Values.db.password }}"
+            - name: SQL_PORT
+              value: "{{ .Values.db.port }}"
+            - name: SQL_HOST
+              value: "{{ .Release.Name }}-postgres"
+            - name: ConnectionStrings__DefaultConnection
+              value: "User ID=$(SQL_USERNAME);Password=$(SQL_PASSWORD);Server=$(SQL_HOST);Port=$(SQL_PORT);Database=$(SQL_DATABASE_NAME); Integrated Security=true;Pooling=true;"
+          

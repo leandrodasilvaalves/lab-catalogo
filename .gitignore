@@ -1,0 +1,4 @@
+kube_config
+*lock.hcl
+*tfstate*
+.terraform/
