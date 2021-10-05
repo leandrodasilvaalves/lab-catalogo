@@ -27,4 +27,4 @@ jobs:
           push: true
           tags: |
             leandroalves86/lab-catalogo:latest
-            leandroalves86/lab-catalogo:$(date +%s)
+            leandroalves86/lab-catalogo:${{ steps.meta.outputs.labels }}
