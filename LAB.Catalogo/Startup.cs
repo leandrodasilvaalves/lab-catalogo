@@ -1,6 +1,9 @@
+using LAB.Catalogo.Middlewares;
 using LAB.Catalogo.Models;
+using LAB.Catalogo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +32,8 @@ namespace LAB.Catalogo
             {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddLogger(Configuration);            
             services.AddControllersWithViews();
         }
 
@@ -49,6 +54,7 @@ namespace LAB.Catalogo
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseCorrelationId();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

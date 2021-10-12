@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: postgresql
-        image: postgres:alpine3.14
+        image: localhost:5000/postgres:alpine3.14
         resources:
           limits:
             memory: "512Mi"
