@@ -3,6 +3,10 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 ENV ConnectionStrings__DefaultConnection=null
+ENV RedisConfig__InstanceName=null
+ENV RedisConfig__Configuration=null
+ENV RedisConfig__AbsoluteExpirationRelativeToNowFromSeconds=null
+ENV RedisConfig__SlidingExpirationFromSeconds=null
 
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build

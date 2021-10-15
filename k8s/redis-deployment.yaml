@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-dpl-name
+spec:
+  selector:
+    matchLabels:
+      app: redis-pod-label
+  template:
+    metadata:
+      labels:
+        app: redis-pod-label
+    spec:
+      containers:
+      - name: redis
+        image: localhost:5000/redis:latest
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service-name
+spec:
+  selector:
+    app: redis-pod-label
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+
+    

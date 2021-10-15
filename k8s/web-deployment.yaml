@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: web-catalogo
-        image: localhost:5000/lab-catalogo:v1
+        image: localhost:5000/lab-catalogo:v3
         resources:
           limits:
             memory: "512Mi"
@@ -22,6 +22,8 @@ spec:
         ports:
         - containerPort: 80
         env:
+          - name: ASPNETCORE_ENVIRONMENT 
+            value: Development
           - name: ConnectionStrings__DefaultConnection
             value: "User ID=postgres;Password=123@Mudar;Server=postgresql-service-name;Port=5432;Database=lab.catalogo; Integrated Security=true;Pooling=true;"
           - name: "RabbitConfig__ConnectionString"            
@@ -34,6 +36,14 @@ spec:
             value: "fanout"
           - name: "RabbitConfig__Routingkey"
             value: ""
+          - name: "RedisConfig__InstanceName"
+            value: "lab-catalogo"
+          - name: "RedisConfig__Configuration"
+            value: "redis-service-name:6379"
+          - name: "RedisConfig__AbsoluteExpirationRelativeToNowFromSeconds"
+            value: "3600"
+          - name: "RedisConfig__SlidingExpirationFromSeconds"
+            value: "1200"
 
 ---
 
