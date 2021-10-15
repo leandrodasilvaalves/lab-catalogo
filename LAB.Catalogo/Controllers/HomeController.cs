@@ -15,21 +15,30 @@ namespace LAB.Catalogo.Controllers
     public class HomeController : Controller
     {
         private readonly ILoggerService _logger;
-
         private readonly CatalogoContext _db;
+        private readonly ICacheService _cacheService;
 
-        public HomeController(ILoggerService logger, CatalogoContext db)
+        public HomeController(
+            ILoggerService logger, 
+            CatalogoContext db, 
+            ICacheService cacheService
+        )
         {
             _logger = logger;
             _db = db;
+            _cacheService = cacheService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            _logger.Info("Obtendo informacoes do banco de dados");
-            var data = _db.Produtos.ToList();
-            _logger.Warn($"Numero de produtos obtidos: {data.Count()}"); 
-            return View(data);
+            string cachekey= "all_products";
+            var products = await _cacheService.GetOrCreateAsync<IEnumerable<Produto>>(cachekey, ()=>{
+                var data = _db.Produtos.ToList();
+                return data;
+            });
+
+            _logger.Info($"Numero de produtos obtidos: {products?.Count()}"); 
+            return View(products);
         }
 
         public IActionResult Privacy()

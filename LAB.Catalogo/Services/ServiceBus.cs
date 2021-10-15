@@ -53,7 +53,6 @@ namespace LAB.Catalogo.Services
             var factory = new ConnectionFactory();
             if(!string.IsNullOrEmpty(_config.ConnectionString)){
                 factory.Uri = new Uri(_config.ConnectionString);
-                System.Console.WriteLine(_config.ConnectionString);
             }else{
                 factory.HostName = _config.HostName;
                 factory.UserName = _config.UserName;

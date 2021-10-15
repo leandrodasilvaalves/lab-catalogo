@@ -33,7 +33,8 @@ namespace LAB.Catalogo
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddLogger(Configuration);            
+            services.AddLogger(Configuration);    
+            services.AddRedis(Configuration);        
             services.AddControllersWithViews();
         }
 
