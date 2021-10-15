@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: web-catalogo
-        image: localhost:5000/lab-catalogo:v3
+        image: localhost:5000/lab-catalogo:v4
         resources:
           limits:
             memory: "512Mi"
@@ -23,11 +23,11 @@ spec:
         - containerPort: 80
         env:
           - name: ASPNETCORE_ENVIRONMENT 
-            value: Development
+            value: "Development"
           - name: ConnectionStrings__DefaultConnection
             value: "User ID=postgres;Password=123@Mudar;Server=postgresql-service-name;Port=5432;Database=lab.catalogo; Integrated Security=true;Pooling=true;"
           - name: "RabbitConfig__ConnectionString"            
-            value: "amqps://flzouboh:aXbkPW9z8sy-hsqxexCMMKZ0flU0vTth@snake.rmq2.cloudamqp.com/flzouboh"                      
+            value: "amqp://user:lbxLdgPcK0@rabbitmq.default.svc/"                      
           - name: "RabbitConfig__QueueName"
             value: "catalogo-logs"
           - name: "RabbitConfig__ExchangeName"

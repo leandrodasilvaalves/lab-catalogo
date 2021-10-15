@@ -3,6 +3,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 ENV ConnectionStrings__DefaultConnection=null
+ENV RabbitConfig__ConnectionString=null
+ENV RabbitConfig__QueueNam=null
+ENV RabbitConfig__ExchangeName=null
+ENV RabbitConfig__ExchangeType=null
+ENV RabbitConfig__Routingkey=null
 ENV RedisConfig__InstanceName=null
 ENV RedisConfig__Configuration=null
 ENV RedisConfig__AbsoluteExpirationRelativeToNowFromSeconds=null
