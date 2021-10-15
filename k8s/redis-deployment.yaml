@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: localhost:5000/redis:latest
+        image: redis:latest
         resources:
           limits:
             memory: "512Mi"

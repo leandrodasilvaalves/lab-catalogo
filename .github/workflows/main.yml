@@ -49,6 +49,7 @@ jobs:
         with:
           manifests: |
             k8s/postgresql-deployment.yaml
+            k8s/redis-deployment.yaml
             k8s/web-deployment.yaml
           images: leandroalves86/lab-catalogo:v${{ github.run_number }}
           

@@ -1,7 +1,7 @@
 web:
   replicaCount: 50
   image:
-    repository: localhost:5000/lab-catalogo
+    repository: leandroalves86/lab-catalogo
     tag: "v2"
   service:
     type: NodePort
@@ -10,7 +10,7 @@ web:
 db:
   replicaCount: 1
   image:
-    repository: localhost:5000/postgres
+    repository: postgres:alpine3.14
     tag: alpine3.14
   service:
     type: ClusterIP
